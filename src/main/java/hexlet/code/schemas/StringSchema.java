@@ -1,34 +1,23 @@
 package hexlet.code.schemas;
 
-public class StringSchema {
-
-    private String currentValidation = "none";
-    private String valueForContains = null;
-    private int valueForMinLength = Integer.MAX_VALUE;
-
-    public boolean isValid(String string) {
-        return switch (currentValidation) {
-            case "none" -> true;
-            case "required" -> string != null && !string.isEmpty();
-            case "contains" -> string.contains(valueForContains);
-            case "minLength" -> string.length() >= valueForMinLength;
-            default -> throw new IllegalStateException("Unexpected value: " + currentValidation);
-        };
-    }
+public class StringSchema extends BaseSchema {
 
     public void required() {
-        currentValidation = "required";
+        super.args = new Object[1];
+        super.validation = (args) -> args[0] != null && !((String) args[0]).isEmpty();
     }
 
     public StringSchema contains(String substring) {
-        currentValidation = "contains";
-        valueForContains = substring;
+        super.args = new Object[2];
+        args[0] = substring;
+        super.validation = (args) -> ((String) args[1]).contains((String) args[0]);
         return this;
     }
 
     public StringSchema minLength(int length) {
-        currentValidation = "minLength";
-        valueForMinLength = length;
+        super.args = new Object[2];
+        args[0] = length;
+        super.validation = (args) -> ((String) args[1]).length() >= ((Integer) args[0]);
         return this;
     }
 }

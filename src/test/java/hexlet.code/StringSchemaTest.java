@@ -8,7 +8,7 @@ public class StringSchemaTest {
     StringSchema schema = new StringSchema();
 
     @Test
-    void blankIsValidTest() {
+    void blankSchemaTest() {
         Assertions.assertTrue(schema.isValid("string_abcdefg"));
         Assertions.assertTrue(schema.isValid(""));
         Assertions.assertTrue(schema.isValid(null));
