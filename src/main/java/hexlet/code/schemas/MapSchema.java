@@ -12,7 +12,7 @@ public class MapSchema extends BaseSchema {
         return this;
     }
 
-    public MapSchema sizeOf(int size) {
+    public MapSchema sizeof(int size) {
         super.args = new Object[2];
         args[0] = size;
         Validation validation = args ->  ((Map<Object, Object>) args[1]).size() == ((int) args[0]);

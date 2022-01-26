@@ -26,8 +26,8 @@ public class MapSchemaTest {
     }
 
     @Test
-    public void sizeOfTest() {
-        schema.sizeOf(1);
+    public void sizeofTest() {
+        schema.sizeof(1);
         Assertions.assertTrue(schema.isValid(map));
 
         map.put("key2", 21);
