@@ -13,7 +13,10 @@ public class NumberSchema extends BaseSchema {
 
     public NumberSchema positive() {
         super.args = new Object[1];
-        Validation validation = args -> ((Number) args[0]).doubleValue() > 0;
+        Validation validation = args -> {
+            Number number = ((Number) args[0]);
+            return number.doubleValue() > 0;
+        };
         super.validations = new ArrayList<>();
         super.validations.add(validation);
         return this;
