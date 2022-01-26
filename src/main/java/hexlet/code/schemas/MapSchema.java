@@ -15,7 +15,12 @@ public class MapSchema extends BaseSchema {
     public MapSchema sizeof(int size) {
         super.args = new Object[2];
         args[0] = size;
-        Validation validation = args ->  ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
+        Validation validation = args ->  {
+            if (!checkNull(args)) {
+                return false;
+            }
+            return ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
+        };
         super.validations = new ArrayList<>();
         super.validations.add(validation);
         return this;
@@ -31,6 +36,9 @@ public class MapSchema extends BaseSchema {
     }
 
     private static boolean shapeValidation(Object[] args) {
+        if (!checkNull(args)) {
+            return false;
+        }
         if (!(args[1] instanceof Map)) {
             throw new IllegalArgumentException("Is not instance of Map");
         }

@@ -20,6 +20,15 @@ public abstract class BaseSchema {
         return true;
     }
 
+    protected static boolean checkNull(Object[] args) {
+        for (Object arg: args) {
+            if (arg == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     interface Validation {
         boolean validate(Object[] args);
     }
