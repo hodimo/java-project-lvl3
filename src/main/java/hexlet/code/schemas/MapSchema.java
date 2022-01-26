@@ -16,7 +16,7 @@ public class MapSchema extends BaseSchema {
         super.args = new Object[2];
         args[0] = size;
         Validation validation = args ->  {
-            if (!checkNull(args)) {
+            if (isNull(args)) {
                 return false;
             }
             return ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
@@ -36,7 +36,7 @@ public class MapSchema extends BaseSchema {
     }
 
     private static boolean shapeValidation(Object[] args) {
-        if (!checkNull(args)) {
+        if (isNull(args)) {
             return false;
         }
         if (!(args[1] instanceof Map)) {
