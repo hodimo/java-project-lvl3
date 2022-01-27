@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class NumberSchema extends BaseSchema {
     public NumberSchema required() {
         super.args = new Object[1];
-        Validation validation = args -> args[0] instanceof Integer;
+        Validation validation = args -> args[0] instanceof Number;
         super.validations = new ArrayList<>();
         super.validations.add(validation);
         return this;
@@ -17,8 +17,8 @@ public class NumberSchema extends BaseSchema {
             if (isNull(args)) {
                 return false;
             }
-            Integer number = ((Integer) args[0]);
-            return number > 0;
+            Number number = ((Number) args[0]);
+            return number.doubleValue() >= 0;
         };
         super.validations = new ArrayList<>();
         super.validations.add(validation);
@@ -33,10 +33,11 @@ public class NumberSchema extends BaseSchema {
             if (isNull(args)) {
                 return false;
             }
-            Integer value = (Integer) args[2];
-            Integer lowest = (Integer) args[0];
-            Integer highest = (Integer) args[1];
-            return value >= lowest && value <= highest;
+            Number value = (Number) args[2];
+            Number lowest = (Number) args[0];
+            Number highest = (Number) args[1];
+            return value.doubleValue() >= lowest.doubleValue()
+                    && value.doubleValue() <= highest.doubleValue();
         };
         super.validations = new ArrayList<>();
         super.validations.add(validation);
