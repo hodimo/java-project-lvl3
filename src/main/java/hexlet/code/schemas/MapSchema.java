@@ -6,7 +6,12 @@ import java.util.Map;
 public class MapSchema extends BaseSchema {
     public MapSchema required() {
         super.args = new Object[1];
-        Validation validation = args -> args[0] instanceof Map;
+        Validation validation = args -> {
+            if (!isNull(args)) {
+                return false;
+            }
+            return args[0] instanceof Map;
+        };
         super.validations = new ArrayList<>();
         super.validations.add(validation);
         return this;

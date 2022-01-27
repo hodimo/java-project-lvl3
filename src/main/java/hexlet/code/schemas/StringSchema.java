@@ -7,7 +7,7 @@ public class StringSchema extends BaseSchema {
     public StringSchema required() {
         super.args = new Object[1];
         Validation validation = args -> {
-            if (isNull(args)) {
+            if (!isNull(args)) {
                 return false;
             }
             return !((String) args[0]).isEmpty();
