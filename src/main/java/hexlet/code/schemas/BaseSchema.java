@@ -1,7 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.List;
-
 public abstract class BaseSchema {
     Validation validation;
     protected Object[] args;
@@ -13,15 +11,6 @@ public abstract class BaseSchema {
         int freeElem = args.length - 1;
         args[freeElem] = value;
         return validation.validate(args);
-    }
-
-    protected static boolean isNull(Object[] args) {
-        for (Object arg: args) {
-            if (arg == null) {
-                return true;
-            }
-        }
-        return false;
     }
 
     interface Validation {

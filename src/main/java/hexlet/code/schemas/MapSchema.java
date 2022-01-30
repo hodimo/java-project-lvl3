@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema {
@@ -13,8 +12,7 @@ public class MapSchema extends BaseSchema {
     public MapSchema sizeof(int size) {
         super.args = new Object[2];
         args[0] = size;
-        super.validation = args -> !isNull(args)
-                && ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
+        super.validation = args -> ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
         return this;
     }
 
@@ -22,9 +20,6 @@ public class MapSchema extends BaseSchema {
         super.args = new Object[2];
         args[0] = schemas;
         super.validation = args -> {
-            if (isNull(args)) {
-                return false;
-            }
             if (!(args[1] instanceof Map)) {
                 throw new IllegalArgumentException("Is not instance of Map");
             }
