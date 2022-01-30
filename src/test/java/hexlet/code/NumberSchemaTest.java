@@ -22,9 +22,10 @@ public class NumberSchemaTest {
 
     @Test
     void positiveTest() {
-        Assertions.assertTrue(schema.positive().isValid(null));
-        Assertions.assertTrue(schema.positive().isValid(10));
-        Assertions.assertFalse(schema.positive().isValid(-3));
+        schema.positive();
+        Assertions.assertTrue(schema.isValid(null));
+        Assertions.assertTrue(schema.isValid(10));
+        Assertions.assertFalse(schema.isValid(-10));
     }
 
     @Test

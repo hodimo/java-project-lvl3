@@ -11,7 +11,7 @@ public class NumberSchema extends BaseSchema {
         super.args = new Object[1];
         super.validation = args -> {
             Number number = ((Number) args[0]);
-            return number == null || number.intValue() > 0;
+            return number == null || number.doubleValue() > 0;
         };
         return this;
     }
@@ -24,8 +24,8 @@ public class NumberSchema extends BaseSchema {
             Number lowest = (Number) args[0];
             Number highest = (Number) args[1];
             Number value = (Number) args[2];
-            return value.intValue() >= lowest.intValue()
-                    && value.intValue() <= highest.intValue();
+            return value.doubleValue() >= lowest.doubleValue()
+                    && value.doubleValue() <= highest.doubleValue();
         };
         return this;
     }
