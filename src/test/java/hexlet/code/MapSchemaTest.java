@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapSchemaTest {
-    MapSchema schema = new MapSchema();
+    MapSchema schema = new Validator().map();
     Map<Object, Object> map = new HashMap<>(Map.of("key1", true));
 
     @Test
@@ -39,8 +39,8 @@ public class MapSchemaTest {
         Validator v = new Validator();
 
         Map<String, BaseSchema> schemas = new HashMap<>();
-        schemas.put("name", v.string().required().minLength(3).contains("o"));
-        schemas.put("age", v.number().required().range(18, 100));
+        schemas.put("name", v.string().required());
+        schemas.put("age", v.number().range(18, 100));
         schema.shape(schemas);
 
         Map<String, Object> human1 = new HashMap<>();

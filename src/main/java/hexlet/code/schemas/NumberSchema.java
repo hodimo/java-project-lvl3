@@ -5,28 +5,19 @@ import java.util.ArrayList;
 public class NumberSchema extends BaseSchema {
     public NumberSchema required() {
         super.args = new Object[1];
-        Validation validation = args -> {
-            if (!isNull(args)) {
-                return false;
-            }
-            return args[0] instanceof Number;
-        };
-        super.validations = new ArrayList<>();
-        super.validations.add(validation);
+        super.validation = args -> args[0] instanceof Number;
         return this;
     }
 
     public NumberSchema positive() {
         super.args = new Object[1];
-        Validation validation = args -> {
+        super.validation = args -> {
             if (isNull(args)) {
                 return false;
             }
             Number number = ((Number) args[0]);
             return number.doubleValue() > 0;
         };
-        super.validations = new ArrayList<>();
-        super.validations.add(validation);
         return this;
     }
 
@@ -34,7 +25,7 @@ public class NumberSchema extends BaseSchema {
         super.args = new Object[3];
         args[0] = n1;
         args[1] = n2;
-        Validation validation = args -> {
+        super.validation = args -> {
             if (isNull(args)) {
                 return false;
             }
@@ -44,8 +35,6 @@ public class NumberSchema extends BaseSchema {
             return value.doubleValue() >= lowest.doubleValue()
                     && value.doubleValue() <= highest.doubleValue();
         };
-        super.validations = new ArrayList<>();
-        super.validations.add(validation);
         return this;
     }
 }

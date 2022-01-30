@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class NumberSchemaTest {
-    NumberSchema schema = new NumberSchema();
+    NumberSchema schema = new Validator().number();
 
     @Test
     void blankSchemaTest() {
@@ -16,6 +16,7 @@ public class NumberSchemaTest {
     void requiredTest() {
         schema.required();
         Assertions.assertTrue(schema.isValid(10));
+        Assertions.assertTrue(schema.isValid(10.2f));
         Assertions.assertFalse(schema.isValid(null));
         Assertions.assertFalse(schema.isValid("5"));
     }

@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 import java.util.List;
 
 public abstract class BaseSchema {
-    protected List<Validation> validations;
+    Validation validation;
     protected Object[] args;
 
     public boolean isValid(Object value) {
@@ -12,12 +12,7 @@ public abstract class BaseSchema {
         }
         int freeElem = args.length - 1;
         args[freeElem] = value;
-        for (Validation validation: validations) {
-            if (!validation.validate(args)) {
-                return false;
-            }
-        }
-        return true;
+        return validation.validate(args);
     }
 
     protected static boolean isNull(Object[] args) {
