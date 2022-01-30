@@ -11,7 +11,7 @@ public class NumberSchema extends BaseSchema {
         super.args = new Object[1];
         super.validation = args -> {
             Number number = ((Number) args[0]);
-            return number == null || number.doubleValue() > 0;
+            return number == null || number.doubleValue() >= 0;
         };
         return this;
     }
