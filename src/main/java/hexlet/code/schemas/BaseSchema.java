@@ -1,19 +1,31 @@
 package hexlet.code.schemas;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class BaseSchema {
-    Validation validation;
-    protected Object[] args;
+    protected Map<String, Validation> checks;
 
     public boolean isValid(Object value) {
-        if (args == null) {
+        if (checks == null) {
             return true;
         }
-        int freeElem = args.length - 1;
-        args[freeElem] = value;
-        return validation.validate(args);
+        for (Map.Entry<String, Validation> validation: checks.entrySet()) {
+            if (!validation.getValue().validate(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected void addCheck(String validatorName, Validation validation) {
+        if (checks == null) {
+            checks = new HashMap<>();
+        }
+        checks.put(validatorName, validation);
     }
 
     interface Validation {
-        boolean validate(Object[] args);
+        boolean validate(Object value);
     }
 }

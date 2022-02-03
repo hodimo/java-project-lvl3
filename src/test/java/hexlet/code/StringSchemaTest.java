@@ -25,7 +25,7 @@ public class StringSchemaTest {
     @Test
     void containsTest() {
         Assertions.assertTrue(schema.contains("str").isValid("string_abcdefg"));
-        Assertions.assertFalse(schema.contains("_abce").isValid("string_abcdefg"));
+        Assertions.assertFalse(schema.contains("elp").isValid("Hello"));
     }
 
     @Test

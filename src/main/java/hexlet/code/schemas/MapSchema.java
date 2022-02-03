@@ -4,35 +4,28 @@ import java.util.Map;
 
 public class MapSchema extends BaseSchema {
     public MapSchema required() {
-        super.args = new Object[1];
-        super.validation = args -> args[0] instanceof Map;
+        Validation isMap = value -> value instanceof Map;
+        addCheck("required", isMap);
         return this;
     }
 
     public MapSchema sizeof(int size) {
-        super.args = new Object[2];
-        args[0] = size;
-        super.validation = args -> ((Map<Object, Object>) args[1]).size() == ((int) args[0]);
+        Validation isMapSizeEqualTo = value -> ((Map<Object, Object>) value).size() == size;
+        addCheck("sizeof", isMapSizeEqualTo);
         return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema> schemas) {
-        super.args = new Object[2];
-        args[0] = schemas;
-        super.validation = args -> {
-            if (!(args[1] instanceof Map)) {
-                throw new IllegalArgumentException("Is not instance of Map");
-            }
-            Map<String, BaseSchema> schemasMap = (Map<String, BaseSchema>) args[0];
-            Map<String, Object> checkedMap = (Map<String, Object>) args[1];
-
-            for (String key: schemasMap.keySet()) {
-                if (!schemasMap.get(key).isValid(checkedMap.get(key))) {
+        Validation isMapFitToShapeByFields = value -> {
+            Map<String, Object> checkedMap = (Map<String, Object>) value;
+            for (String key: schemas.keySet()) {
+                if (!schemas.get(key).isValid(checkedMap.get(key))) {
                     return false;
                 }
             }
             return true;
         };
+        addCheck("shape", isMapFitToShapeByFields);
         return this;
     }
 }
