@@ -16,4 +16,7 @@ test:
 report:
 		./gradlew jacocoTestReport
 
+updates-check:
+		./gradlew dependencyUpdates
+
 .PHONY: build test

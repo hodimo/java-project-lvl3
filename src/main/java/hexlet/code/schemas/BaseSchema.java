@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BaseSchema {
-    protected Map<String, Validation> checks;
+    private Map<String, Validation> checks;
 
-    public boolean isValid(Object value) {
+    public final boolean isValid(Object value) {
         if (checks == null) {
             return true;
         }
@@ -18,7 +18,7 @@ public abstract class BaseSchema {
         return true;
     }
 
-    protected void addCheck(String validatorName, Validation validation) {
+    protected final void addCheck(String validatorName, Validation validation) {
         if (checks == null) {
             checks = new HashMap<>();
         }
