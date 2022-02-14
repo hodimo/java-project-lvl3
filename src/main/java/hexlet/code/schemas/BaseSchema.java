@@ -2,24 +2,28 @@ package hexlet.code.schemas;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    private final Map<String, Validation> checks = new HashMap<>();
+    private final Map<String, Predicate<Object>> checks = new HashMap<>();
 
     public final boolean isValid(Object value) {
-        for (Map.Entry<String, Validation> validation: checks.entrySet()) {
-            if (!validation.getValue().validate(value)) {
+        if (!checks.containsKey("required")) {
+            if (value == null) {
+                return true;
+            }
+        } else if (!checks.get("required").test(value)) {
+            return false;
+        }
+        for (Map.Entry<String, Predicate<Object>> validation: checks.entrySet()) {
+            if (!validation.getValue().test(value)) {
                 return false;
             }
         }
         return true;
     }
 
-    protected final void addCheck(String validatorName, Validation validation) {
+    protected final void addCheck(String validatorName, Predicate<Object> validation) {
         checks.put(validatorName, validation);
-    }
-
-    interface Validation {
-        boolean validate(Object value);
     }
 }

@@ -34,18 +34,13 @@ public class NumberSchemaTest {
 
     @Test
     void rangeTest() {
-        final int lowBound = 5;
-        final int highBound = 10;
-        final int inBounds = 7;
-        final int belowBounds = 3;
-        final int aboveBounds = 573;
-        schema.range(lowBound, highBound);
+        schema.range(5, 10);
 
-        Assertions.assertTrue(schema.isValid(lowBound));
-        Assertions.assertTrue(schema.isValid(highBound));
-        Assertions.assertTrue(schema.isValid(inBounds));
-        Assertions.assertFalse(schema.isValid(belowBounds));
-        Assertions.assertFalse(schema.isValid(aboveBounds));
+        Assertions.assertTrue(schema.isValid(5));
+        Assertions.assertTrue(schema.isValid(10));
+        Assertions.assertTrue(schema.isValid(7));
+        Assertions.assertFalse(schema.isValid(3));
+        Assertions.assertFalse(schema.isValid(573));
     }
 }
 

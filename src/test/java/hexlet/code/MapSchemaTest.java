@@ -37,24 +37,20 @@ public class MapSchemaTest {
     @Test
     public void shapeTest() {
         Validator v = new Validator();
-        final int lowAgeBound = 18;
-        final int highAgeBound = 100;
-        final int belowBounds = 15;
-        final int inBounds = 24;
 
         Map<String, BaseSchema> schemas = new HashMap<>();
         schemas.put("name", v.string().required().contains("o"));
-        schemas.put("age", v.number().range(lowAgeBound, highAgeBound));
+        schemas.put("age", v.number().range(18, 100));
         schema.shape(schemas);
 
         Map<String, Object> human1 = new HashMap<>();
         human1.put("name", "Kolya");
-        human1.put("age", inBounds);
+        human1.put("age", 24);
         Assertions.assertTrue(schema.isValid(human1));
 
         Map<String, Object> human2 = new HashMap<>();
         human2.put("name", "Maya");
-        human2.put("age", belowBounds);
+        human2.put("age", 15);
         Assertions.assertFalse(schema.isValid(human2));
 
         Map<String, Object> human3 = new HashMap<>();
@@ -64,7 +60,7 @@ public class MapSchemaTest {
 
         Map<String, Object> human4 = new HashMap<>();
         human4.put("name", "Tom");
-        human4.put("age", belowBounds);
+        human4.put("age", 15);
         Assertions.assertFalse(schema.isValid(human4));
     }
 }

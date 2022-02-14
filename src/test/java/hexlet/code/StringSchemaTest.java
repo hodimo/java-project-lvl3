@@ -30,9 +30,8 @@ public class StringSchemaTest {
 
     @Test
     void minLengthTest() {
-        final int trueLength = 13;
         Assertions.assertTrue(schema.minLength(0).isValid(""));
-        Assertions.assertTrue(schema.minLength(trueLength).isValid("string_abcdefg"));
-        Assertions.assertFalse(schema.minLength(trueLength + 2).isValid("string_abcdefg"));
+        Assertions.assertTrue(schema.minLength(13).isValid("string_abcdefg"));
+        Assertions.assertFalse(schema.minLength(15).isValid("string_abcdefg"));
     }
 }
